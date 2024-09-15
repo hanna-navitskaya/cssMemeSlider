@@ -1,0 +1,143 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #2a2929;
+}
+
+.slider-container {
+    width: 95vw;
+    display: grid;
+    grid-template-areas:
+        "slider"
+        "controls"
+        "title";
+    gap: 10px;
+    overflow: hidden;
+}
+
+.slider {
+    grid-area: slider;
+    display: flex;
+    aspect-ratio: 16 / 9;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    flex: 0 0 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.controls {
+    grid-area: controls;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.control {
+    display: none;
+}
+
+.control-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.control-label span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgb(51, 97, 176);
+    background-color: rgb(51, 97, 176);
+    transition: all 0.3s ease-in-out;
+}
+
+.control-label:hover span {
+    border-color: white;
+    background-color: white;
+}
+
+.control-label:active {
+    opacity: 0.8;
+}
+
+.title-container {
+    grid-area: title;
+    height: 30px;
+    overflow: hidden;
+}
+
+.title-wrapper {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease-in-out;
+}
+
+.title {
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+#slide1:checked ~ .slider { transform: translateX(0); }
+#slide2:checked ~ .slider { transform: translateX(-100%); }
+#slide3:checked ~ .slider { transform: translateX(-200%); }
+#slide4:checked ~ .slider { transform: translateX(-300%); }
+
+#slide1:checked ~ .controls .control-label[for="slide1"] span,
+#slide2:checked ~ .controls .control-label[for="slide2"] span,
+#slide3:checked ~ .controls .control-label[for="slide3"] span,
+#slide4:checked ~ .controls .control-label[for="slide4"] span {
+    background-color: transparent;
+}
+
+#slide1:checked ~ .controls .control-label[for="slide1"],
+#slide2:checked ~ .controls .control-label[for="slide2"],
+#slide3:checked ~ .controls .control-label[for="slide3"],
+#slide4:checked ~ .controls .control-label[for="slide4"] {
+    cursor: default;
+}
+
+#slide1:checked ~ .title-container .title-wrapper { transform: translateY(0); }
+#slide2:checked ~ .title-container .title-wrapper { transform: translateY(-30px); }
+#slide3:checked ~ .title-container .title-wrapper { transform: translateY(-60px); }
+#slide4:checked ~ .title-container .title-wrapper { transform: translateY(-90px); }
+
+@media (min-width: 768px) {
+    .slider-container {
+        width: 70vw;
+        grid-template-areas:
+            "slider slider"
+            "title controls";
+        grid-template-columns: 1fr auto;
+    }
+
+    .title-container {
+        text-align: left;
+    }
+
+    .title {
+        justify-content: flex-start;
+    }
+}
